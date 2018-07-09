@@ -6,12 +6,14 @@ function Card(props) {
       class="card"
       {...props}
       style={
+        // using 'dragging' property to change styles dynamically
         !props.dragging
           ? {}
           : { border: "2px dashed red", backgroundColor: "yellow" }
       }
     >
-      {!props.dragging ? <p>{props.content}</p> : <span />}
+      {// using 'dragging' property to change display behavior
+      !props.dragging ? <p>{props.content}</p> : <span />}
     </div>
   );
 }

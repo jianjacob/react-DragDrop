@@ -12,23 +12,9 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      cardsContent: [],
-      content: "",
-      dragindex: null,
-      dropindex: null
+      cardsContent: [], // this will store all the cards to be displayed
+      content: "" // content of card currently being added
     };
-  }
-
-  setDragIndex(index) {
-    this.setState({
-      dragindex: index
-    });
-  }
-
-  setDropIndex(index) {
-    this.setState({
-      dropindex: index
-    });
   }
 
   changeContent(e) {
@@ -37,6 +23,8 @@ class App extends React.Component {
     });
   }
 
+  // A common use for drag and drop between elements,
+  // swaps their positions
   swapCards(dragIndex, dropIndex) {
     let updatedCards = this.state.cardsContent;
     const dragValue = this.state.cardsContent[dragIndex];
@@ -57,25 +45,22 @@ class App extends React.Component {
     this.setState({ content: "" });
   }
 
-  deleteCard(index) {
-    this.setState({
-      cardsContent: this.state.cardsContent.filter((card, i) => i !== index)
-    });
-  }
-
   render() {
     return (
       <div className="App">
+        {/* Input to add new cards */}
         <Input
           handleChange={this.changeContent.bind(this)}
           value={this.state.content}
           handleClick={this.addCard.bind(this)}
         />
         {this.state.cardsContent.map((content, index) => (
+          // DragDrop component with custom drop handler
           <DragDrop handleDrop={this.swapCards.bind(this)}>
+            {/* Card is now draggable (and droppable!) */}
             <Card
               key={index}
-              id={index}
+              id={index} // unique ID for child, will try to find a better implementation
               content={content}
               cards={this.state.cardsContent}
             />
